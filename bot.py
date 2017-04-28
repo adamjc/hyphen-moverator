@@ -10,15 +10,11 @@ reddit = praw.Reddit(user_agent='AssBot v0.1',
 
 subreddit = reddit.subreddit('all')
 
-comments = subreddit.stream.comments()
-
 regex = re.compile('(\w+)-ass (\w+)?')
 
-for comment in comments:
-    text = comment.body
-    match = regex.match(text)
-    if match:
-        print({datetime.datetime.now().isoformat()})
-        print('match found: ')
-        print(match.group())
-        print('{match.group(1) ass-{match.group(2)}}')
+for submission in subreddit.stream.submissions():
+    comments = submission.comments.list()
+    for comment in comments:
+        match = regex.match(comment.body)
+        if match:
+            comment.reply('What about a %s ass-%s?' % (match.group(1), match.group(2)))
