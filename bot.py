@@ -1,6 +1,5 @@
 import praw
 import re
-import datetime
 
 reddit = praw.Reddit(user_agent='AssBot v0.1',
                      client_id='client_id',
